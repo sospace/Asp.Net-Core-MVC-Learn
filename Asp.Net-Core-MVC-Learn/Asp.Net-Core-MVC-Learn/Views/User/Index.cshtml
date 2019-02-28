@@ -1,0 +1,14 @@
+﻿@using Asp.Net_Core_MVC_Learn.Data;
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>@ViewData["message"]</h2>
+
+@inject ApplicationDbContext db;
+@foreach (var u in db.Users)
+{
+    <p>@u.UserName</p>
+}
+
