@@ -41,6 +41,9 @@ namespace Asp.Net_Core_MVC_Learn
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddTransient<Practice.inject>();//依赖关系注入服务注册
+            services.AddTransient<Controllers.UserController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

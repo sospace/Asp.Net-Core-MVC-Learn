@@ -1,14 +1,18 @@
 ﻿@using Asp.Net_Core_MVC_Learn.Data;
-
+@inject Asp.Net_Core_MVC_Learn.Practice.inject t_inject;
+@inject Asp.Net_Core_MVC_Learn.Controllers.UserController t_user;
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "这是一个MVC学习测试页面";
+    ViewData["Author"] = "SuperObject";//自定义html传值,这里赋值将被应用在_Layout文件中,也可以在Controller中使用
 }
 
 <h2>@ViewData["message"]</h2>
+<h2>@ViewData["newmessage"]</h2>
 
 @inject ApplicationDbContext db;
 @foreach (var u in db.Users)
 {
     <p>@u.UserName</p>
 }
-
+<p>这是一个inject测试：@t_inject.Test()</p>
+<p>这是控制器的一个inject测试：@t_user.TestInject()</p>
