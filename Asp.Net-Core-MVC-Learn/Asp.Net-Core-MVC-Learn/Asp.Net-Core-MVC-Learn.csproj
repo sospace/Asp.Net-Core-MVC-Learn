@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-Asp.Net_Core_MVC_Learn-EC49FF3E-B617-4199-900F-EE777B6911B0</UserSecretsId>
+    <RootNamespace>Learn</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
