@@ -7,47 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Asp.Net_Core_MVC_Learn.Data;
 using Learn.Models;
-using System.Collections;
 
 namespace Asp.Net_Core_MVC_Learn.Controllers
 {
-    public class AccountsController : Controller
+    public class DeptmentsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public AccountsController(ApplicationDbContext context)
+        public DeptmentsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Accounts
-        // 如果这里参数名str为id可以通过 Accounts/Index/{id}或Accounts/Index?id={id} 来进行检索
-        public async Task<IActionResult> Index(string str, int? deptid)
+        // GET: Deptments
+        public async Task<IActionResult> Index()
         {
-            IQueryable<Deptment> deptQuery = from m in _context.Deptment orderby m.Sort select m;
-
-            var accounts = from m in _context.Account select m;
-
-            if (!string.IsNullOrEmpty(str))
-            {
-                accounts = accounts.Where(s => s.Name.Contains(str));
-            }
-
-            if (!(deptid is null))
-            {
-                accounts = accounts.Where(s => s.DeptmentId == deptid);
-            }
-
-            var viewAccount = new ViewAccount()
-            {
-                Accounts = await accounts.ToListAsync(),
-                Depts = new SelectList(await deptQuery.Distinct().ToListAsync(), "Id", "Name")
-            };
-            return View(viewAccount);
+            return View(await _context.Deptment.ToListAsync());
         }
 
-        // GET: Accounts/Details/5
-        // 变量int?可以赋值null 普通int则不可以
+        // GET: Deptments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,41 +33,39 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Account
+            var deptment = await _context.Deptment
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            if (deptment == null)
             {
                 return NotFound();
             }
 
-            return View(account);
+            return View(deptment);
         }
 
-        // GET: Accounts/Create
+        // GET: Deptments/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Accounts/Create
+        // POST: Deptments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //ValidateAntiForgeryToken 防止伪提交验证，建议非API的控制器都加上这个验证
-        // Bind 即要更新的字段信息
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Name,Email,BirthDay,Deptment")] Account account)
+        public async Task<IActionResult> Create([Bind("Id,Name,Sort")] Deptment deptment)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(account);
+                _context.Add(deptment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(account);
+            return View(deptment);
         }
 
-        // GET: Accounts/Edit/5
+        // GET: Deptments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -97,22 +73,22 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Account.FindAsync(id);
-            if (account == null)
+            var deptment = await _context.Deptment.FindAsync(id);
+            if (deptment == null)
             {
                 return NotFound();
             }
-            return View(account);
+            return View(deptment);
         }
 
-        // POST: Accounts/Edit/5
+        // POST: Deptments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Name,Email,BirthDay,Deptment")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Sort")] Deptment deptment)
         {
-            if (id != account.Id)
+            if (id != deptment.Id)
             {
                 return NotFound();
             }
@@ -121,12 +97,12 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
             {
                 try
                 {
-                    _context.Update(account);
+                    _context.Update(deptment);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExists(account.Id))
+                    if (!DeptmentExists(deptment.Id))
                     {
                         return NotFound();
                     }
@@ -137,10 +113,10 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(account);
+            return View(deptment);
         }
 
-        // GET: Accounts/Delete/5
+        // GET: Deptments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,30 +124,30 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
                 return NotFound();
             }
 
-            var account = await _context.Account
+            var deptment = await _context.Deptment
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (account == null)
+            if (deptment == null)
             {
                 return NotFound();
             }
 
-            return View(account);
+            return View(deptment);
         }
 
-        // POST: Accounts/Delete/5
+        // POST: Deptments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var account = await _context.Account.FindAsync(id);
-            _context.Account.Remove(account);
+            var deptment = await _context.Deptment.FindAsync(id);
+            _context.Deptment.Remove(deptment);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AccountExists(int id)
+        private bool DeptmentExists(int id)
         {
-            return _context.Account.Any(e => e.Id == id);
+            return _context.Deptment.Any(e => e.Id == id);
         }
     }
 }

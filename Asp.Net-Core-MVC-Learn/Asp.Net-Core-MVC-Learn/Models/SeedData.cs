@@ -19,21 +19,26 @@ namespace Learn.Models
             using (var content = new ApplicationDbContext(serviceProvider.GetRequiredService<
                     DbContextOptions<ApplicationDbContext>>()))
             {
-                if (content.Account.Any())
+                if (content.Deptment.Any() || content.Account.Any())
                     return;
-                content.Account.AddRange(new Account()
+                for (int i = 1; i <= 3; i++)
                 {
-                    Name = "test",
-                    Email = "1@1.com",
-                    UserName = "test",
-                    BirthDay = new DateTime(1987, 2, 2)
-                }, new Account()
-                {
-                    Name = "test2",
-                    Email = "2@2.com",
-                    UserName = "test2",
-                    BirthDay = new DateTime(1987, 2, 3)
-                });
+                    var dept = new Deptment()
+                    {
+                        Name = "部门" + i,
+                        Accounts = new List<Account>()
+                    };
+
+                    for (int k = 1; k <= i; k++)
+                    {
+                        dept.Accounts.Add(new Account()
+                        {
+                            Name = "用户" + i + k,
+                            UserName = "Test" + i + k
+                        });
+                    }
+                    content.Deptment.AddRange(dept);
+                }
                 content.SaveChanges();
             }
         }

@@ -14,5 +14,6 @@ namespace Asp.Net_Core_MVC_Learn.Data
         {
         }
         public DbSet<Learn.Models.Account> Account { get; set; }
+        public DbSet<Learn.Models.Deptment> Deptment { get; set; }
     }
 }

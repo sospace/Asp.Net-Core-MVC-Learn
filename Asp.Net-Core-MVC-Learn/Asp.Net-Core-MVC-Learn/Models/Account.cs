@@ -17,5 +17,9 @@ namespace Learn.Models
         public string Email { get; set; }
         [DataType(DataType.Date)]
         public DateTime BirthDay { get; set; }
+        public int DeptmentId { get; set; }
+
+        [Display(Name = "所属部门")]
+        public Deptment Deptment { get; set; }
     }
 }
