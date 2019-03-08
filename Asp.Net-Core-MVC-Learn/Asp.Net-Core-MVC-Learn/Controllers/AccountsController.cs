@@ -20,9 +20,15 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
         }
 
         // GET: Accounts
-        public async Task<IActionResult> Index()
+        // 如果这里参数名str为id可以通过 Accounts/Index/{id}或Accounts/Index?id={id} 来进行检索
+        public async Task<IActionResult> Index(string str)
         {
-            return View(await _context.Account.ToListAsync());
+            var accounts = from m in _context.Account select m;
+            if (!string.IsNullOrEmpty(str))
+            {
+                accounts = accounts.Where(s => s.Name.Contains(str));
+            }
+            return View(await accounts.ToListAsync());
         }
 
         // GET: Accounts/Details/5
@@ -53,6 +59,8 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
         // POST: Accounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //ValidateAntiForgeryToken 防止伪提交验证，建议非API的控制器都加上这个验证
+        // Bind 即要更新的字段信息
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserName,Name,Email,BirthDay")] Account account)
