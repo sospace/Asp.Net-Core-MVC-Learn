@@ -15,9 +15,21 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
             ViewData["NewMessage"] = "新变量.";
             return View();
         }
-        public IActionResult TestInject()
+        public IActionResult TestInject(string msg)
         {
-            return Json("ok");
+            return Ok(msg);
+        }
+
+        public IActionResult Source()
+        {
+            var url = Url.Action("Destination"); // Generates /custom/url/to/destination
+            return Content($"Go check out {url}, it's really great.");
+        }
+        public IActionResult Des()
+        {
+            //var url = Url.Action("Buy", "Products", new { id = 17, color = "red" });
+            var url = Url.Action("Buy", "Products", new { id = 17 }, protocol: Request.Scheme);
+            return Content(url);
         }
         public string HelloMVC(string name, int age, int id, bool isEncode = false)
         {

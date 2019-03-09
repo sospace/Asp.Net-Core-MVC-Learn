@@ -10,6 +10,9 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("")]
+        [Route("Home")]
+        [Route("Home/Index")]//在webapi中一般不适用Route，使用Get Post明确使用
         public IActionResult Index()
         {
             return View();

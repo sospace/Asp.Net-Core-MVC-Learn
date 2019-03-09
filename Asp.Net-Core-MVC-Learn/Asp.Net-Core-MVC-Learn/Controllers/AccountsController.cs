@@ -45,7 +45,7 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
             };
             return View(viewAccount);
         }
-
+        [HttpGet("/man/{id:int}")]
         // GET: Accounts/Details/5
         // 变量int?可以赋值null 普通int则不可以
         public async Task<IActionResult> Details(int? id)

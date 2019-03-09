@@ -68,6 +68,7 @@ namespace Asp.Net_Core_MVC_Learn
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute("user", "u/{id?}", defaults: new { controller = "Accounts", action = "Details" });
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
