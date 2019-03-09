@@ -21,6 +21,7 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
         }
         public string HelloMVC(string name, int age, int id, bool isEncode = false)
         {
+            
             var text = $"You name:{name} and you age:{age}. encode={isEncode},id:{id}";
             if (isEncode)
                 return HtmlEncoder.Default.Encode(text);

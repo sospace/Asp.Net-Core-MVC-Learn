@@ -1,0 +1,16 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Partial";
+}
+
+<h2 style="color:red;">这是一个子视图 部分视图</h2>
+<div style="height:300px; width:300px;">
+    @{
+
+        @*System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+        var str = await client.GetStringAsync("http://www.github.com");
+        @str;*@
+    }
+    欢迎来到：@Model
+    这里是ViewData数据：@ViewBag.Index 在ViewData中赋值后，ViewBag中也可以使用，如：ViewData["Index"]=ViewBag.Index
+</div>

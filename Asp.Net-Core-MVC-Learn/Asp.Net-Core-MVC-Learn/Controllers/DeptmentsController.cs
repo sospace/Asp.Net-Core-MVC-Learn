@@ -22,7 +22,7 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
         // GET: Deptments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Deptment.ToListAsync());
+            return View("Index", await _context.Deptment.ToListAsync());
         }
 
         // GET: Deptments/Details/5

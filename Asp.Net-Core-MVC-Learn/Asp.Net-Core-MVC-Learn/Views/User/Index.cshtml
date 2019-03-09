@@ -16,3 +16,8 @@
 }
 <p>这是一个inject测试：@t_inject.Test()</p>
 <p>这是控制器的一个inject测试：@t_user.TestInject()</p>
+@*同步加载子页面：<partial name="Partial" />*@
+异步加载子页面：
+@{
+    await Html.RenderPartialAsync("Partial", "Hello 子页面", new ViewDataDictionary(ViewData) { { "Index", 3 } });
+}
