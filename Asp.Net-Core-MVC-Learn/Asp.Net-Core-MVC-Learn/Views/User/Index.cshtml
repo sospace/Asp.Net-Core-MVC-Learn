@@ -16,6 +16,21 @@
 }
 <p>这是一个inject测试：@t_inject.Test()</p>
 <p>这是控制器的一个inject测试：@t_user.TestInject("Hello inject")</p>
+<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Upload">
+    <div class="form-group">
+        <div class="col-md-10">
+            <p>选择一个或多个文件上传:</p>
+            <input type="file" name="files" multiple />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="上传" />
+        </div>
+    </div>
+</form>
+
+
 @*同步加载子页面：<partial name="Partial" />*@
 异步加载子页面：
 @{
