@@ -37,8 +37,11 @@ namespace Asp.Net_Core_MVC_Learn
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAntiforgery(options => options.HeaderName = "X-XSRF-TOKEN");//文件上传中的防伪令牌
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 

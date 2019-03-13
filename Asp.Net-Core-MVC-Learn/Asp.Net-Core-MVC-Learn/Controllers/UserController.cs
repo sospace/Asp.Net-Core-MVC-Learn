@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
@@ -48,7 +47,7 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
         {
             long size = files.Sum(f => f.Length);
 
-            // full path to file in temp location
+            // 存储在临时目录
             var filePath = Path.GetTempFileName();
 
             foreach (var formFile in files)
