@@ -35,12 +35,26 @@ namespace Asp.Net_Core_MVC_Learn.Controllers
         }
         public string HelloMVC(string name, int age, int id, bool isEncode = false)
         {
-            
+
             var text = $"You name:{name} and you age:{age}. encode={isEncode},id:{id}";
             if (isEncode)
                 return HtmlEncoder.Default.Encode(text);
             else
                 return text;
+        }
+
+        public IActionResult PrintSession()
+        {
+            HttpContext.Session.SetString("_Test", "测试会话");
+            CookieBuilder cookie = new CookieBuilder();
+            var temp = cookie.Build(HttpContext);
+            return Json(HttpContext.Session.Keys);
+        }
+        public IActionResult PrintCookie()
+        {
+            CookieBuilder cookie = new CookieBuilder();
+            var temp = cookie.Build(HttpContext);
+            return Json(temp);
         }
 
         //文件上传

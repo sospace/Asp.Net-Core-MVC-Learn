@@ -16,6 +16,27 @@
 }
 <p>这是一个inject测试：@t_inject.Test()</p>
 <p>这是控制器的一个inject测试：@t_user.TestInject("Hello inject")</p>
+<p>
+    <a asp-action="PrintSession">查看会话</a>
+    <a asp-action="PrintCookie">查看Cookie</a>
+</p>
+<p>
+    @Html.Label("ddd", "testlab")
+    @Html.TextBox("sss")
+    <span class="field-validation-valid"
+  data-valmsg-for="sss"
+  data-valmsg-replace="true">奥术大师</span>
+    <input type="datetime" />
+    @Html.Editor("12312")
+</p>
+<p>
+    缓存标记
+    <cache>@DateTime.Now</cache>
+    分布式缓存
+    <distributed-cache name="my-distributed-cache-unique-key-101">
+        Time Inside Cache Tag Helper: @DateTime.Now
+    </distributed-cache>
+</p>
 <form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Upload">
     <div class="form-group">
         <div class="col-md-10">
@@ -32,7 +53,7 @@
 
 
 @*同步加载子页面：<partial name="Partial" />*@
-异步加载子页面：
-@{
-    await Html.RenderPartialAsync("Partial", "Hello 子页面", new ViewDataDictionary(ViewData) { { "Index", 3 } });
-}
+@*异步加载子页面：
+    @{
+        await Html.RenderPartialAsync("Partial", "Hello 子页面", new ViewDataDictionary(ViewData) { { "Index", 3 } });
+    }*@

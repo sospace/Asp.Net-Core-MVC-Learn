@@ -40,6 +40,9 @@ namespace Asp.Net_Core_MVC_Learn
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //启用会话
+            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromSeconds(10); options.Cookie.HttpOnly = true; });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddTransient<Practice.inject>();//依赖关系注入服务注册
@@ -65,6 +68,8 @@ namespace Asp.Net_Core_MVC_Learn
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
